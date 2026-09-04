@@ -123,6 +123,9 @@ button:disabled{background:#c9ced6;border-color:#c9ced6;color:#fff;cursor:not-al
   display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
 }
 .score{font-size:1.5rem;font-weight:700}
+.score-label{display:block;font-size:.8rem;font-weight:600;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.score .rappel{display:block;font-size:.78rem;font-style:italic;margin-top:6px;max-width:52ch}
 .score small{display:block;font-size:.8rem;font-weight:400;color:var(--muted);margin-top:2px}
 
 /* Bandeau fixe : toujours visible pendant le défilement, il affiche la
@@ -134,6 +137,8 @@ button:disabled{background:#c9ced6;border-color:#c9ced6;color:#fff;cursor:not-al
   padding:10px 18px;
   display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:center;
 }
+.bandeau .b-label{font-size:.78rem;font-weight:600;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.05em}
 .bandeau .b-note{font-size:1.35rem;font-weight:700;white-space:nowrap}
 .bandeau .b-detail{font-size:.85rem;color:var(--muted)}
 .bandeau .jauge{
@@ -205,8 +210,11 @@ button:disabled{background:#c9ced6;border-color:#c9ced6;color:#fff;cursor:not-al
 
   <div class="pied">
     <div class="score">
-      Note : <span id="note">—/20</span>
-      <small id="detail">Aucune réponse validée pour l'instant (0 / 21 réponses justes)</small>
+      <span class="score-label">Note finale</span>
+      <span id="note">0,00/20</span>
+      <small id="detail">0 bonne(s) réponse(s) sur les 21 demandées — 21 sans réponse, comptée(s) comme fausse(s)</small>
+      <small class="rappel">Calculée sur la totalité de l'exercice : toute question laissée vide ou non
+        validée compte comme fausse. C'est cette note qui figure sur la copie imprimée.</small>
     </div>
     <button type="button" id="btn-print">Imprimer ma copie</button>
   </div>
@@ -215,9 +223,10 @@ button:disabled{background:#c9ced6;border-color:#c9ced6;color:#fff;cursor:not-al
 
 <!-- Bandeau fixe : reste visible pendant tout le défilement. Masqué à l'impression. -->
 <div class="bandeau" role="status" aria-live="polite">
+  <span class="b-label">Note en cours</span>
   <span class="b-note" id="note-bandeau">—/20</span>
   <span class="jauge"><span id="jauge-barre"></span></span>
-  <span class="b-detail" id="detail-bandeau">0 / 21 réponses justes</span>
+  <span class="b-detail" id="detail-bandeau">aucune réponse validée</span>
 </div>
 
 <script>
@@ -646,22 +655,33 @@ function validerQuestion(q){
 function majNote(){
   var justes = 0, valides = 0, k;
   for(k in etat){ if(etat.hasOwnProperty(k)){ valides++; if(etat[k]) justes++; } }
-  var note = (justes / TOTAL_CHAMPS) * 20;
-  var texteNote = (valides === 0) ? "\u2014/20" : note.toFixed(2).replace(".", ",") + "/20";
-  var texteDetail = (valides === 0)
-    ? "Aucune réponse validée pour l'instant (0 / " + TOTAL_CHAMPS + " réponses justes)"
-    : justes + " / " + TOTAL_CHAMPS + " réponses justes \u2014 " + valides + " réponse(s) validée(s) sur " + TOTAL_CHAMPS;
+  /* --- NOTE EN COURS (bandeau fixe) ---
+     Calculée uniquement sur les réponses DÉJÀ VALIDÉES, pas sur le total
+     de l'exercice : (bonnes réponses validées / réponses validées) × 20.
+     Ex. : Q1 fausse puis Q2 juste  ->  1 bonne sur 2 validées  ->  10,00/20. */
+  var noteCourante = (valides === 0) ? 0 : (justes / valides) * 20;
 
-  /* Bloc de fin d'exercice (visible à l'impression) */
-  document.getElementById("note").textContent = texteNote;
-  document.getElementById("detail").textContent = texteDetail;
+  /* --- NOTE FINALE (corps de page, seule imprimée) ---
+     Calculée sur la TOTALITÉ des questions de l'exercice : les questions
+     laissées vides ou non validées comptent comme fausses.
+     (bonnes réponses / nombre total de questions) × 20. */
+  var noteFinale = (justes / TOTAL_CHAMPS) * 20;
 
   /* Bandeau fixe (masqué à l'impression) */
-  document.getElementById("note-bandeau").textContent = texteNote;
-  document.getElementById("detail-bandeau").textContent =
-    justes + " / " + TOTAL_CHAMPS + " réponses justes";
+  document.getElementById("note-bandeau").textContent =
+    (valides === 0) ? "\u2014/20" : noteCourante.toFixed(2).replace(".", ",") + "/20";
+  document.getElementById("detail-bandeau").textContent = (valides === 0)
+    ? "aucune réponse validée"
+    : justes + " bonne(s) sur " + valides + " réponse(s) validée(s)";
   document.getElementById("jauge-barre").style.width =
     ((valides / TOTAL_CHAMPS) * 100).toFixed(1) + "%";
+
+  /* Bloc de fin d'exercice (visible à l'impression) */
+  document.getElementById("note").textContent =
+    noteFinale.toFixed(2).replace(".", ",") + "/20";
+  document.getElementById("detail").textContent =
+    justes + " bonne(s) réponse(s) sur les " + TOTAL_CHAMPS + " demandées \u2014 "
+    + (TOTAL_CHAMPS - valides) + " sans réponse, comptée(s) comme fausse(s)";
 }
 
 /* ============================================================
