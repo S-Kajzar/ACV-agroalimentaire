@@ -12,31 +12,24 @@
   --muted:#5a6470;
   --line:#dde1e6;
   --accent:#1f6feb;
-  --ok-bg:#e7f6ec; --ok-ink:#12692f; --ok-line:#8fd0a5;
-  --ko-bg:#fdeaea; --ko-ink:#a1231f; --ko-line:#f0a9a6;
+  --ok-bg:#e7f6ec; --ok-ink:#0f5d29; --ok-line:#7dc79a;
+  --ko-bg:#fdeaea; --ko-ink:#96201c; --ko-line:#eb9d99;
 }
 *{box-sizing:border-box}
 body{
-  margin:0;
-  padding:20px 14px 60px;
-  background:var(--bg);
-  color:var(--ink);
+  margin:0; padding:20px 14px 60px;
+  background:var(--bg); color:var(--ink);
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  font-size:16px;
-  line-height:1.55;
+  font-size:16px; line-height:1.55;
 }
 .wrap{max-width:900px;margin:0 auto}
 
 header.main{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:22px 24px;
-  margin-bottom:18px;
+  background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:22px 24px; margin-bottom:18px;
 }
 header.main h1{margin:0 0 6px;font-size:1.5rem;line-height:1.25}
 header.main p.sub{margin:0;color:var(--muted);font-size:.95rem}
-
 .identite{
   display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;
   padding-top:14px;border-top:1px dashed var(--line);
@@ -46,18 +39,18 @@ header.main p.sub{margin:0;color:var(--muted);font-size:.95rem}
   flex:1;min-width:0;padding:7px 10px;border:1px solid var(--line);
   border-radius:7px;font:inherit;font-size:.95rem;background:#fff;color:var(--ink);
 }
+.avertissement{
+  background:#fff8e6;border-left:4px solid #d99b00;
+  padding:10px 14px;border-radius:0 8px 8px 0;font-size:.93rem;margin-top:16px;
+}
 
 section.exo{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:20px 24px 24px;
-  margin-bottom:20px;
+  background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:20px 24px 24px; margin-bottom:20px;
 }
 section.exo > h2{
   margin:0 0 4px;font-size:1.18rem;
-  padding-bottom:8px;border-bottom:2px solid var(--accent);
-  display:inline-block;
+  padding-bottom:8px;border-bottom:2px solid var(--accent);display:inline-block;
 }
 .doc{margin:14px 0}
 .doc p{margin:.6em 0}
@@ -72,15 +65,14 @@ figure figcaption{font-size:.85rem;color:var(--muted);margin-top:6px}
 }
 .logo-ab{float:left;width:64px;margin:0 14px 8px 0}
 
-.q{
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:14px 16px;
-  margin:16px 0;
-  background:#fcfcfd;
+.q{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:16px 0;background:#fcfcfd}
+.q.verrouillee{background:#f7f8fa}
+.enonce{margin:0 0 11px;font-size:1rem}
+.enonce .num{
+  display:inline-block;font-weight:700;color:var(--accent);
+  margin-right:6px;
 }
-.q h3{margin:0 0 4px;font-size:1rem}
-.q .consigne{margin:0 0 10px;color:var(--muted);font-size:.93rem}
+.enonce strong{font-weight:700}
 
 .champs{display:flex;flex-direction:column;gap:9px}
 .champ{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
@@ -90,8 +82,11 @@ figure figcaption{font-size:.85rem;color:var(--muted);margin-top:6px}
   font:inherit;font-size:1rem;background:#fff;color:var(--ink);
 }
 .champ input[type=text]:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.champ input[type=text]:disabled{
+  color:var(--ink);-webkit-text-fill-color:var(--ink);opacity:1;font-weight:600;
+}
 .champ .unite{font-size:.9rem;color:var(--muted);min-width:62px}
-.champ .verdict{font-size:.9rem;font-weight:600;min-width:22px}
+.champ .verdict{font-size:.9rem;font-weight:700;min-width:22px}
 .champ.correct input[type=text]{border-color:var(--ok-line);background:var(--ok-bg)}
 .champ.correct .verdict{color:var(--ok-ink)}
 .champ.incorrect input[type=text]{border-color:var(--ko-line);background:var(--ko-bg)}
@@ -103,56 +98,61 @@ button{
   border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer;
 }
 button:hover{filter:brightness(1.08)}
-button.secondaire{background:#fff;color:var(--accent)}
+button:disabled{background:#c9ced6;border-color:#c9ced6;color:#fff;cursor:not-allowed;filter:none}
 .bilan{font-size:.9rem;font-weight:600}
 .bilan.ok{color:var(--ok-ink)}
 .bilan.ko{color:var(--ko-ink)}
 
 .explication{
   display:none;margin-top:12px;padding:12px 14px;
-  background:#f2f4f7;border-left:4px solid #97a1ad;border-radius:0 8px 8px 0;
-  font-size:.93rem;
+  background:#f2f4f7;border-left:4px solid #97a1ad;border-radius:0 8px 8px 0;font-size:.93rem;
 }
 .explication.visible{display:block}
 .explication strong{display:block;margin-bottom:4px}
-.explication .calc{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9rem;background:#fff;
-  display:inline-block;padding:2px 6px;border-radius:5px;border:1px solid var(--line);margin:2px 0}
+.explication .calc{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9rem;background:#fff;
+  display:inline-block;padding:2px 6px;border-radius:5px;border:1px solid var(--line);margin:2px 0;
+}
 
 .pied{
-  position:sticky;bottom:0;
   background:var(--card);border:1px solid var(--line);border-radius:12px;
-  padding:16px 20px;margin-top:22px;
+  padding:18px 22px;margin-top:8px;
   display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
-  box-shadow:0 -2px 10px rgba(0,0,0,.05);
 }
-.score{font-size:1.35rem;font-weight:700}
-.score small{display:block;font-size:.8rem;font-weight:400;color:var(--muted)}
-.pied .btns{display:flex;gap:10px;flex-wrap:wrap}
+.score{font-size:1.5rem;font-weight:700}
+.score small{display:block;font-size:.8rem;font-weight:400;color:var(--muted);margin-top:2px}
 
 @media (max-width:560px){
   body{padding:12px 8px 40px}
   section.exo{padding:16px 14px 18px}
-  header.main{padding:16px 16px}
+  header.main{padding:16px}
   .champ input[type=text]{width:110px}
   .pied{flex-direction:column;align-items:stretch}
 }
 
+/* ---------- IMPRESSION ----------
+   La copie imprimée contient : les réponses de l'élève, le statut
+   correct/incorrect, TOUTES les corrections (même celles des questions
+   non validées) et la note finale. Les boutons disparaissent. */
 @media print{
-  :root{--bg:#fff}
-  body{background:#fff;padding:0;font-size:11.5pt}
-  button,.actions,.note-info{display:none !important}
-  .explication{display:none !important}
-  header.main,section.exo,.q,.pied{
-    border:1px solid #999;box-shadow:none;border-radius:0;page-break-inside:avoid;
+  @page{margin:12mm}
+  body{background:#fff;padding:0;font-size:11pt;color:#000}
+  button,.avertissement,.note-info{display:none !important}
+  .explication{display:block !important;background:#fff;border-left:3px solid #000;page-break-inside:avoid}
+  .explication .calc{background:#fff;border:none;padding:0}
+  header.main,section.exo,.pied{border:1px solid #666;border-radius:0;box-shadow:none;margin-bottom:10px}
+  section.exo > h2{border-bottom:1.5px solid #000}
+  .q{background:#fff !important;border:1px solid #999;page-break-inside:avoid;margin:10px 0}
+  .champ input[type=text],.champ input[type=text]:disabled{
+    border:none;border-bottom:1.2px solid #000;border-radius:0;
+    background:#fff !important;color:#000 !important;-webkit-text-fill-color:#000 !important;
+    font-weight:700;width:115px;padding:2px 4px;
   }
-  .pied{position:static}
-  .q{background:#fff}
-  .champ input[type=text]{border:none;border-bottom:1px solid #333;border-radius:0;background:#fff !important;
-    font-weight:700;width:110px}
   .champ.correct .verdict,.champ.incorrect .verdict{color:#000}
-  figure img{max-width:75%}
-  .identite input{border:none;border-bottom:1px solid #333;border-radius:0}
-  a{text-decoration:none;color:#000}
+  .identite input{border:none;border-bottom:1px solid #000;border-radius:0;background:#fff}
+  .pied{page-break-inside:avoid}
+  figure img{max-width:70%}
+  .doc,.explication{color:#000}
 }
 </style>
 </head>
@@ -160,12 +160,17 @@ button.secondaire{background:#fff;color:var(--accent)}
 <div class="wrap">
 
   <header class="main">
-    <h1>ACV de l'alimentation (agroalimentaire)</h1>
-    <p class="sub">Analyse du cycle de vie — empreinte carbone par poste de consommation, France, 2019.</p>
+    <h1>Exercice — ACV de l'alimentation (agroalimentaire)</h1>
+    <p class="sub">Analyse du cycle de vie : empreinte carbone par poste de consommation, France, 2019.
+       Exercice en 4 parties, 10 questions, une seule note sur 20 en fin de page.</p>
     <div class="identite">
       <label>Nom, prénom : <input type="text" id="nom" autocomplete="off"></label>
       <label>Classe : <input type="text" id="classe" autocomplete="off"></label>
       <label>Date : <input type="text" id="date" autocomplete="off"></label>
+    </div>
+    <div class="avertissement">
+      <strong>Attention :</strong> une fois que tu cliques sur « Valider », ta réponse est définitive et ne peut
+      plus être modifiée. Réfléchis bien et vérifie ton calcul avant de valider.
     </div>
   </header>
 
@@ -176,11 +181,7 @@ button.secondaire{background:#fff;color:var(--accent)}
       <span id="note">—/20</span>
       <small id="detail">Aucune réponse validée pour l'instant (0 / 21 réponses justes)</small>
     </div>
-    <div class="btns">
-      <button type="button" id="btn-tout">Tout valider</button>
-      <button type="button" class="secondaire" id="btn-reset">Effacer mes réponses</button>
-      <button type="button" class="secondaire" id="btn-print">Imprimer ma copie</button>
-    </div>
+    <button type="button" id="btn-print">Imprimer ma copie</button>
   </div>
 
 </div>
@@ -188,6 +189,8 @@ button.secondaire{background:#fff;color:var(--accent)}
 <script>
 /* ============================================================
    1. DONNÉES DE L'EXERCICE
+   Chaque champ possède une réponse attendue (rep), une tolérance
+   numérique (tol) ; chaque question possède une explication (expl).
    ============================================================ */
 
 const CONTENU = [
@@ -377,180 +380,172 @@ const CONTENU = [
   }
 ];
 
+
 /* ============================================================
-   2. OUTILS DE COMPARAISON TOLÉRANTE
+   2. COMPARAISON TOLÉRANTE DES RÉPONSES
    ============================================================ */
 
-/* Normalisation d'une chaîne : minuscules, sans accents, sans espaces
-   superflus, sans ponctuation de fin. */
+/* Normalisation : minuscules, sans accents, sans espaces superflus,
+   sans ponctuation finale. */
 function normaliser(s){
   return String(s)
     .toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")   // accents
-    .replace(/[.,;:!?'"()\[\]]+$/g,"")                  // ponctuation finale
-    .replace(/\s+/g," ")                                 // espaces multiples
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[.,;:!?'"()\[\]]+$/g,"")
+    .replace(/\s+/g," ")
     .trim();
 }
 
-/* Conversion en nombre : accepte la virgule ou le point comme séparateur
-   décimal, ignore les espaces (y compris insécables) et les unités écrites
-   à la suite du nombre. Renvoie NaN si ce n'est pas un nombre. */
+/* Conversion en nombre : virgule ou point acceptés, espaces (y compris
+   insécables) ignorés, unité ou symbole % écrits à la suite tolérés. */
 function versNombre(s){
-  let t = String(s)
+  var t = String(s)
     .replace(/[\s\u00a0\u202f]/g,"")
     .replace(",", ".")
     .replace(/%/g,"")
     .replace(/t\s*eq\s*co2/gi,"");
-  const m = t.match(/^[-+]?\d*\.?\d+/);
+  var m = t.match(/^[-+]?\d*\.?\d+/);
   if(!m) return NaN;
-  const v = parseFloat(m[0]);
+  var v = parseFloat(m[0]);
   return isNaN(v) ? NaN : v;
 }
 
-/* Distance de Levenshtein (pour les réponses textuelles). */
+/* Distance de Levenshtein, pour les réponses rédigées. */
 function levenshtein(a,b){
-  const m=a.length, n=b.length;
+  var m=a.length, n=b.length;
   if(!m) return n;
   if(!n) return m;
-  let prev=Array.from({length:n+1},(_,j)=>j), cur=new Array(n+1);
-  for(let i=1;i<=m;i++){
+  var prev=[], cur=[], i, j;
+  for(j=0;j<=n;j++) prev[j]=j;
+  for(i=1;i<=m;i++){
     cur[0]=i;
-    for(let j=1;j<=n;j++){
-      cur[j]=Math.min(prev[j]+1, cur[j-1]+1, prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    for(j=1;j<=n;j++){
+      cur[j]=Math.min(prev[j]+1, cur[j-1]+1, prev[j-1]+(a.charAt(i-1)===b.charAt(j-1)?0:1));
     }
-    [prev,cur]=[cur,prev];
+    var tmp=prev; prev=cur; cur=tmp;
   }
   return prev[n];
 }
 
-/* Comparaison texte tolérante : identique après normalisation, ou distance
-   de Levenshtein faible. Le seuil dépend de la longueur pour éviter les
-   faux positifs sur les réponses très courtes. */
+/* Comparaison textuelle : le seuil dépend de la longueur attendue,
+   pour éviter les faux positifs sur les réponses très courtes. */
 function texteProche(saisi, attendu){
-  const a=normaliser(saisi), b=normaliser(attendu);
+  var a=normaliser(saisi), b=normaliser(attendu);
   if(!a) return false;
   if(a===b) return true;
-  const seuil = b.length<=4 ? 0 : (b.length<=8 ? 1 : 2);
+  var seuil = b.length<=4 ? 0 : (b.length<=8 ? 1 : 2);
   return levenshtein(a,b) <= seuil;
 }
 
-/* Vérification d'un champ : numérique avec intervalle de tolérance,
-   ou textuel avec plusieurs formulations acceptées. */
+/* Vérification d'un champ : numérique (intervalle de tolérance) ou
+   textuel (liste de formulations acceptées). */
 function verifier(saisi, champ){
   if(!String(saisi).trim()) return false;
   if(typeof champ.rep === "number"){
-    const v = versNombre(saisi);
+    var v = versNombre(saisi);
     if(isNaN(v)) return false;
     return Math.abs(v - champ.rep) <= (champ.tol || 0.001);
   }
-  const acceptees = Array.isArray(champ.rep) ? champ.rep : [champ.rep];
-  return acceptees.some(r => texteProche(saisi, r));
-}
-
-/* Affichage d'un nombre à la française, 3 décimales, sans zéros inutiles. */
-function fr(n){
-  return Number(n).toFixed(3).replace(".", ",");
+  var acceptees = Object.prototype.toString.call(champ.rep)==="[object Array]" ? champ.rep : [champ.rep];
+  for(var i=0;i<acceptees.length;i++){ if(texteProche(saisi, acceptees[i])) return true; }
+  return false;
 }
 
 /* ============================================================
    3. CONSTRUCTION DE LA PAGE
    ============================================================ */
 
-const etat = {};   // "idChamp" -> true / false / undefined
-let TOTAL_CHAMPS = 0;
+var etat = {};          // "idChamp" -> true / false (définitif)
+var TOTAL_CHAMPS = 0;
 
 function construire(){
-  const racine = document.getElementById("contenu");
+  var racine = document.getElementById("contenu");
 
-  CONTENU.forEach((partie, ip) => {
-    const sec = document.createElement("section");
+  CONTENU.forEach(function(partie){
+    var sec = document.createElement("section");
     sec.className = "exo";
 
-    const h2 = document.createElement("h2");
+    var h2 = document.createElement("h2");
     h2.textContent = partie.titre;
     sec.appendChild(h2);
 
-    const doc = document.createElement("div");
+    var doc = document.createElement("div");
     doc.className = "doc";
     doc.innerHTML = partie.html;
     sec.appendChild(doc);
 
-    partie.questions.forEach(q => {
-      const bloc = document.createElement("div");
+    partie.questions.forEach(function(q){
+      var bloc = document.createElement("div");
       bloc.className = "q";
       bloc.id = "bloc-" + q.id;
 
-      const h3 = document.createElement("h3");
-      h3.textContent = q.titre;
-      bloc.appendChild(h3);
+      /* Numéro de question suivi immédiatement de l'énoncé en gras. */
+      var enonce = document.createElement("p");
+      enonce.className = "enonce";
+      var num = document.createElement("span");
+      num.className = "num";
+      num.textContent = q.titre + " :";
+      var txt = document.createElement("strong");
+      txt.textContent = q.consigne;
+      enonce.appendChild(num);
+      enonce.appendChild(txt);
+      bloc.appendChild(enonce);
 
-      const cons = document.createElement("p");
-      cons.className = "consigne";
-      cons.textContent = q.consigne;
-      bloc.appendChild(cons);
-
-      const champs = document.createElement("div");
+      var champs = document.createElement("div");
       champs.className = "champs";
 
-      q.champs.forEach((c, ic) => {
-        const cid = q.id + "-" + ic;
+      q.champs.forEach(function(c, ic){
+        var cid = q.id + "-" + ic;
         TOTAL_CHAMPS++;
 
-        const ligne = document.createElement("div");
+        var ligne = document.createElement("div");
         ligne.className = "champ";
         ligne.dataset.cid = cid;
 
-        const lib = document.createElement("label");
+        var lib = document.createElement("label");
         lib.className = "lib";
         lib.setAttribute("for", "in-" + cid);
         lib.textContent = c.lib + " :";
 
-        const inp = document.createElement("input");
+        var inp = document.createElement("input");
         inp.type = "text";
         inp.id = "in-" + cid;
         inp.autocomplete = "off";
         inp.inputMode = "decimal";
         inp.setAttribute("aria-label", q.titre + " — " + c.lib);
-        // Une nouvelle saisie efface le verdict précédent (nouvelle tentative libre)
-        inp.addEventListener("input", () => {
-          if(etat[cid] !== undefined){
-            delete etat[cid];
-            ligne.classList.remove("correct","incorrect");
-            ligne.querySelector(".verdict").textContent = "";
-            majNote();
-          }
-        });
-        inp.addEventListener("keydown", e => {
+        inp.addEventListener("keydown", function(e){
           if(e.key === "Enter"){ e.preventDefault(); validerQuestion(q); }
         });
 
-        const uni = document.createElement("span");
+        var uni = document.createElement("span");
         uni.className = "unite";
         uni.innerHTML = c.unite;
 
-        const ver = document.createElement("span");
+        var ver = document.createElement("span");
         ver.className = "verdict";
         ver.setAttribute("aria-live","polite");
 
-        ligne.appendChild(lib); ligne.appendChild(inp); ligne.appendChild(uni); ligne.appendChild(ver);
+        ligne.appendChild(lib); ligne.appendChild(inp);
+        ligne.appendChild(uni); ligne.appendChild(ver);
         champs.appendChild(ligne);
       });
 
       bloc.appendChild(champs);
 
-      const actions = document.createElement("div");
+      var actions = document.createElement("div");
       actions.className = "actions";
-      const btn = document.createElement("button");
+      var btn = document.createElement("button");
       btn.type = "button";
+      btn.id = "btn-" + q.id;
       btn.textContent = "Valider";
-      btn.addEventListener("click", () => validerQuestion(q));
-      const bilan = document.createElement("span");
+      btn.addEventListener("click", function(){ validerQuestion(q); });
+      var bilan = document.createElement("span");
       bilan.className = "bilan";
       bilan.id = "bilan-" + q.id;
       actions.appendChild(btn); actions.appendChild(bilan);
       bloc.appendChild(actions);
 
-      const expl = document.createElement("div");
+      var expl = document.createElement("div");
       expl.className = "explication";
       expl.id = "expl-" + q.id;
       expl.innerHTML = q.expl;
@@ -564,74 +559,68 @@ function construire(){
 }
 
 /* ============================================================
-   4. VALIDATION ET NOTE
+   4. VALIDATION (DÉFINITIVE) ET NOTE
    ============================================================ */
 
 function validerQuestion(q){
-  let justes = 0;
-  q.champs.forEach((c, ic) => {
-    const cid = q.id + "-" + ic;
-    const ligne = document.querySelector('.champ[data-cid="' + cid + '"]');
-    const inp = document.getElementById("in-" + cid);
-    const ok = verifier(inp.value, c);
+  /* Une question déjà validée ne peut plus l'être une seconde fois. */
+  if(etat[q.id + "-0"] !== undefined) return;
+
+  var justes = 0;
+  q.champs.forEach(function(c, ic){
+    var cid = q.id + "-" + ic;
+    var ligne = document.querySelector('.champ[data-cid="' + cid + '"]');
+    var inp = document.getElementById("in-" + cid);
+    var ok = verifier(inp.value, c);
+
     etat[cid] = ok;
     if(ok) justes++;
-    ligne.classList.toggle("correct", ok);
-    ligne.classList.toggle("incorrect", !ok);
-    ligne.querySelector(".verdict").textContent = ok ? "✓" : "✗";
+
+    ligne.classList.add(ok ? "correct" : "incorrect");
+    ligne.querySelector(".verdict").textContent = ok ? "\u2713" : "\u2717";
+
+    /* Verrouillage définitif : la réponse ne peut plus être modifiée
+       après affichage de la correction. */
+    inp.disabled = true;
+    inp.setAttribute("readonly","readonly");
   });
 
-  const bilan = document.getElementById("bilan-" + q.id);
-  const n = q.champs.length;
-  if(n === 1){
-    bilan.textContent = justes === 1 ? "Bonne réponse" : "Réponse incorrecte — tu peux réessayer";
-  } else {
-    bilan.textContent = justes + " / " + n + " bonne(s) réponse(s)";
-  }
+  var btn = document.getElementById("btn-" + q.id);
+  btn.disabled = true;
+  btn.textContent = "Réponse validée";
+
+  var bilan = document.getElementById("bilan-" + q.id);
+  var n = q.champs.length;
+  bilan.textContent = (n === 1)
+    ? (justes === 1 ? "Bonne réponse" : "Réponse incorrecte")
+    : (justes + " / " + n + " bonne(s) réponse(s)");
   bilan.className = "bilan " + (justes === n ? "ok" : "ko");
 
   document.getElementById("expl-" + q.id).classList.add("visible");
+  document.getElementById("bloc-" + q.id).classList.add("verrouillee");
+
   majNote();
 }
 
 function majNote(){
-  let justes = 0, valides = 0;
-  Object.values(etat).forEach(v => { valides++; if(v) justes++; });
-  const note = (justes / TOTAL_CHAMPS) * 20;
+  var justes = 0, valides = 0, k;
+  for(k in etat){ if(etat.hasOwnProperty(k)){ valides++; if(etat[k]) justes++; } }
+  var note = (justes / TOTAL_CHAMPS) * 20;
   document.getElementById("note").textContent =
-    valides === 0 ? "—/20" : note.toFixed(2).replace(".", ",") + "/20";
-  document.getElementById("detail").textContent = valides === 0
+    (valides === 0) ? "\u2014/20" : note.toFixed(2).replace(".", ",") + "/20";
+  document.getElementById("detail").textContent = (valides === 0)
     ? "Aucune réponse validée pour l'instant (0 / " + TOTAL_CHAMPS + " réponses justes)"
-    : justes + " / " + TOTAL_CHAMPS + " réponses justes — " + valides + " réponse(s) validée(s)";
+    : justes + " / " + TOTAL_CHAMPS + " réponses justes \u2014 " + valides + " réponse(s) validée(s) sur " + TOTAL_CHAMPS;
 }
 
 /* ============================================================
-   5. BOUTONS GLOBAUX
+   5. DÉMARRAGE
    ============================================================ */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function(){
   construire();
   majNote();
-
-  document.getElementById("btn-tout").addEventListener("click", () => {
-    CONTENU.forEach(p => p.questions.forEach(q => validerQuestion(q)));
-    window.scrollTo({top:0, behavior:"smooth"});
-  });
-
-  document.getElementById("btn-reset").addEventListener("click", () => {
-    if(!confirm("Effacer toutes tes réponses et recommencer ?")) return;
-    document.querySelectorAll('.champ input[type=text]').forEach(i => i.value = "");
-    document.querySelectorAll('.champ').forEach(l => {
-      l.classList.remove("correct","incorrect");
-      l.querySelector(".verdict").textContent = "";
-    });
-    document.querySelectorAll('.bilan').forEach(b => { b.textContent=""; b.className="bilan"; });
-    document.querySelectorAll('.explication').forEach(e => e.classList.remove("visible"));
-    for(const k in etat) delete etat[k];
-    majNote();
-  });
-
-  document.getElementById("btn-print").addEventListener("click", () => window.print());
+  document.getElementById("btn-print").addEventListener("click", function(){ window.print(); });
 });
 </script>
 </body>
